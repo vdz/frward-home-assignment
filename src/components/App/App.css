@@ -1,0 +1,13 @@
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+body {
+  background-color: #191970;
+  background-image: url('../../assets/lilly.png');
+  background-size: 33%;
+}
