@@ -1,6 +1,6 @@
 import { createReducer } from "@reduxjs/toolkit";
 import { UserState } from "./types";
-import { deleteUser, newUser, setUserError, setUsers, updateUser } from "./user.actions";
+import { deleteUser, newUser, setUserError, setUsers, updateUser, userCountryValid, userDataValid, userEmailValid, userNameValid, userPhoneValid } from "./user.actions";
 
 export const defaultState: UserState = {
     users: [],
@@ -50,5 +50,21 @@ export const userReducer = createReducer(defaultState, (builder) => {
             ...action.payload.error
         }
     })
+    .addCase(userNameValid, (state, action) => {
+        if (state.errors[action.payload.id] === undefined) return;
+        delete state.errors[action.payload.id].name;
+    })
+    .addCase(userCountryValid, (state, action) => {
+        if (state.errors[action.payload.id] === undefined) return;
+        delete state.errors[action.payload.id].country;
+    })
+    .addCase(userEmailValid, (state, action) => {
+        if (state.errors[action.payload.id] === undefined) return;
+        delete state.errors[action.payload.id].email;
+    })
+    .addCase(userPhoneValid, (state, action) => {
+        if (state.errors[action.payload.id] === undefined) return;
+        delete state.errors[action.payload.id].phone;
+    });
 });
 

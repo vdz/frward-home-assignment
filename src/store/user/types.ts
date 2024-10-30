@@ -20,10 +20,22 @@ export interface NewUserPayload {
 
 export interface UpdateUserPayload {
     id: string;
+    name: string;
+    country: string;
+    email: string;
+    phone: string;
+}
+
+export interface ValidateUserDataPayload {
+    id: string;
     name?: string;
     country?: string;
     email?: string;
     phone?: string;
+}
+
+export interface UserDataValidPayload {
+    id: string;
 }
 
 export interface DeleteUserPayload {

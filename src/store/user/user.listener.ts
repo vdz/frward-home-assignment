@@ -1,12 +1,12 @@
 import { ListenerEffect } from "@reduxjs/toolkit";
-import { newUser, setUserError, updateUser } from "./user.actions";
-import { ErrorType, NewUserPayload } from "./types";
+import { newUser, setUserError, updateUser, userCountryValid, userEmailValid, userNameValid, userPhoneValid, validateUserData } from "./user.actions";
+import { ErrorType } from "./types";
 import { validateCountry, validateEmail, validateName, validatePhone } from "./isValid";
 
 
 export const userListener = [
     {
-        actionCreator: updateUser,
+        actionCreator: validateUserData,
         effect: (action, listenerApi) => {
             let validationError: ErrorType | null = null;
             const {id, name, email, country, phone } = action.payload;
@@ -23,10 +23,9 @@ export const userListener = [
                             name: validationError
                         }
                     }));
-                    // TODO: possibly cancel the action here
-                    listenerApi.cancel();
-                    return false;
+                    return;
                 }
+                listenerApi.dispatch(userNameValid({ id }));
             }
 
             // country
@@ -39,9 +38,9 @@ export const userListener = [
                             country: validationError
                         }
                     }));
-                    // TODO: possibly cancel the action here
                     return; 
-                }
+                } 
+                listenerApi.dispatch(userCountryValid({ id }));
             }
 
             // email
@@ -54,9 +53,9 @@ export const userListener = [
                             email: validationError
                         }
                     }));
-                    // TODO: possibly cancel the action here
                     return; 
                 }
+                listenerApi.dispatch(userEmailValid({ id }));
             }
 
             // phone
@@ -67,11 +66,10 @@ export const userListener = [
                         id, 
                         error: { phone: validationError }
                     }));
-                    // TODO: possibly cancel the action here
                     return; 
                 }
-            }   
-
+                listenerApi.dispatch(userPhoneValid({ id }));
+            }
         }
     }
 ]   

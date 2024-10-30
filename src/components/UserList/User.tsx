@@ -1,14 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { UserProps } from "./types";
-import { deleteUser, updateUser } from "../../store/user/user.actions";
+import { deleteUser, updateUser, validateUserData } from "../../store/user/user.actions";
 import { useDispatch, useSelector } from "react-redux";
-import { DeleteButton, UserEmail, UserName, UserPhone, UserWrapper } from "./UserList.styled";
+import { DeleteButton, UpdateButton, UserEmail, UserName, UserPhone, UserWrapper } from "./UserList.styled";
 import { RootState } from "../../store/store";
 
 export const User: React.FC<UserProps> = ({ id }) => {
     const { name, country, email, phone } = useSelector((state: RootState) => state.user.by_id[id]);
     const errors = useSelector((state: RootState) => state.user.errors[id]);
-    const hasErrors = errors && Object.values(errors).some((error) => error !== undefined);
 
     const [fName, setFName] = useState(name || '');
     const [fCountry, setFCountry] = useState(country || '');
@@ -17,6 +16,13 @@ export const User: React.FC<UserProps> = ({ id }) => {
     
     const inputRef = useRef<HTMLInputElement>(null);
 
+    const shouldSave = (name !== fName) 
+        || (country !== fCountry) 
+        || (email !== fEmail) 
+        || (phone !== fPhone);
+    const hasErrors = errors 
+    && Object.values(errors).some((error) => error !== undefined);
+
     const dispatch = useDispatch();
 
     const classes = {
@@ -24,7 +30,8 @@ export const User: React.FC<UserProps> = ({ id }) => {
         'country-error' : errors?.country ?? '',
         'email-error' : errors?.email ?? '',
         'phone-error' : errors?.phone ?? '',
-        'save-block' : hasErrors ? 'disabled' : ''
+        'save-block' : hasErrors ? 'disabled' : '',
+        'save-enabled' : shouldSave ? 'show' : ''
     }
 
     useEffect(() => {
@@ -44,7 +51,7 @@ export const User: React.FC<UserProps> = ({ id }) => {
                     setFName(e.target.value);
                 }}
                 onBlur={() => {
-                    dispatch(updateUser({
+                    dispatch(validateUserData({
                         id,
                         name: fName
                     }));
@@ -58,7 +65,7 @@ export const User: React.FC<UserProps> = ({ id }) => {
                     setFEmail(e.target.value);
                 }}
                 onBlur={() => {
-                    dispatch(updateUser({
+                    dispatch(validateUserData({
                         id,
                         email: fEmail
                     }));
@@ -71,12 +78,26 @@ export const User: React.FC<UserProps> = ({ id }) => {
                     setFPhone(e.target.value);
                 }}
                 onBlur={() => {
-                    dispatch(updateUser({
+                    dispatch(validateUserData({
                         id,
                         phone: fPhone
                     }));
                 }} />
-            <DeleteButton className={classes['save-block']} 
+            <UpdateButton className={`${classes['save-block']} ${classes['save-enabled']}`} 
+                disabled={hasErrors}
+                title="click to save"
+                onClick={() => {
+                        dispatch(updateUser({ 
+                            id, 
+                            name: fName, 
+                            country: fCountry, 
+                            email: fEmail, 
+                            phone: fPhone 
+                        }));
+                    }}>
+                        Save
+            </UpdateButton>
+            <DeleteButton
                 title="click to immediately delete"
                 onClick={() => {
                     dispatch(deleteUser({ id }));

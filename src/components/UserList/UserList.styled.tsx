@@ -63,6 +63,8 @@ export const UserWrapper = styled.div`
     line-height: 50px;
     padding-left: 20px;
     padding-right: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 
     font-family: monospace;
 
@@ -96,7 +98,27 @@ export const UserWrapper = styled.div`
             color: #333;
         }
         &.invalid, &.empty {
-            background-color: var(--focus-color);
+            position: relative;
+            border-color: #fff;
+            background-color: var(--error-color);
+            color: #fff;
+            &::after {
+                position: absolute;
+                width: fit-content;
+                height: 15px;
+                bottom: -5px;
+                left: 0;
+                font-size: 0.8rem;
+                text-align: left;
+                /* can import content: attr(data-error), but JSX is messy enough */
+            }
+        }
+
+        &.invalid::after {
+            content: 'Invalid value 🫣';
+        }
+        &.empty::after {
+            content: 'Empty value 😬';
         }
 
     }
@@ -121,5 +143,29 @@ export const DeleteButton = styled.button`
 
     &:hover {
         scale: 1.7;
+    }
+`;
+
+export const UpdateButton = styled.button`
+    flex-shrink: 1; 
+    appearance: none;
+    border: none;
+    background-color: rgb(42, 0, 252);
+    cursor: pointer;
+    min-width: 76px;
+    height: 46px;
+    line-height: 46px;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 700;
+    visibility: hidden;
+
+    &.disabled {
+        background-color: #ccc;
+        color: #999;
+    }
+
+    &.show {
+        visibility: visible;
     }
 `;
