@@ -1,7 +1,10 @@
+import { AutoComplete } from "rsuite";
+import { PickerPopup } from "rsuite/esm/internals/Picker";
 import styled from "styled-components";
 
 export const ListWrapper = styled.div`
     display: flex;
+    position: relative;
     flex-direction: column;
     justify-content: space-between;
     gap: 0rem;
@@ -16,16 +19,28 @@ export const ListWrapper = styled.div`
 `;
 
 export const Title = styled.h1`
-    font-size: 2rem;
+    font-family: monospace;
+    text-align: left;
+    font-size: 1.8rem;
     font-weight: 700;
-    color: #ccc;
+    color: #333;
+    padding-left: 20px;
+    padding-right: 20px;
+`;
+
+
+export const Meta = styled.span`
+    font-weight: 400;
+    color: #999;
+    margin-left: 10px;
 `;
 
 export const NewUserButton = styled.button`
     height: 46px;
+    width: 92px;
     line-height: 46px;
     appearance: none;
-    border: 4px dashed #ccc;
+    border: 2px dashed #ccc;
     border-radius: 1rem;
     background-color: #fff;
     padding: 0;
@@ -37,6 +52,7 @@ export const NewUserButton = styled.button`
     text-align: center;
     margin-left: 20px;
     margin-right: 20px;
+    margin-bottom: 20px;
     flex-shrink: 0;
 
     &:hover {
@@ -120,7 +136,39 @@ export const UserWrapper = styled.div`
         &.empty::after {
             content: 'Empty value 😬';
         }
+    }
+`;
 
+export const WrappedAutoComplete = styled(AutoComplete)`
+    .rs-input {
+        height: 48px;
+    }
+
+    &.invalid input.rs-input, &.empty input.rs-input {
+        border-color: #fff;
+        background-color: var(--error-color);
+        color: #fff;
+    }
+
+    &.invalid, &.empty {
+        &::after {
+            position: absolute;
+            width: fit-content;
+            height: 15px;
+            bottom: -5px;
+            left: 0;
+            font-size: 0.8rem;
+            text-align: left;
+            /* can import content: attr(data-error), but JSX is messy enough */
+        }
+    }
+
+    &.invalid::after {
+        content: 'Invalid value 🫣';
+    }
+
+    &.empty::after {
+        content: 'Empty value 😬';
     }
 `;
 
@@ -142,6 +190,7 @@ export const DeleteButton = styled.button`
     }
 
     &:hover {
+        animation: fadeIn 1s ease-in-out;
         scale: 1.7;
     }
 `;

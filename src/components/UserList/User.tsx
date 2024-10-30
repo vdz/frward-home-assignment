@@ -2,9 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import { UserProps } from "./types";
 import { deleteUser, updateUser, validateUserData } from "../../store/user/user.actions";
 import { useDispatch, useSelector } from "react-redux";
-import { DeleteButton, UpdateButton, UserEmail, UserName, UserPhone, UserWrapper } from "./UserList.styled";
+import { DeleteButton, UpdateButton, UserEmail, UserName, UserPhone, UserWrapper, WrappedAutoComplete } from "./UserList.styled";
 import { RootState } from "../../store/store";
-
+import { AutoComplete } from "rsuite";
+import countries from '../../data/countries.json';
 export const User: React.FC<UserProps> = ({ id }) => {
     const { name, country, email, phone } = useSelector((state: RootState) => state.user.by_id[id]);
     const errors = useSelector((state: RootState) => state.user.errors[id]);
@@ -56,7 +57,21 @@ export const User: React.FC<UserProps> = ({ id }) => {
                         name: fName
                     }));
                 }} />
-                {country}
+            <WrappedAutoComplete value={fCountry}
+                data={countries}
+                className={classes['country-error']}
+                placeholder="Israel"
+                title="click to update"
+                onChange={(value) => {
+                    setFCountry(value);
+                }}
+                onExit={() => {
+                    dispatch(validateUserData({
+                        id,
+                        country: fCountry
+                    }));
+                }} />
+
             <UserEmail value={fEmail} 
                 className={classes['email-error']}
                 placeholder="israel@israeli.co.il" 

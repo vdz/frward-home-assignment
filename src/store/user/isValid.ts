@@ -6,7 +6,7 @@ export function validateName(field: string): ErrorType | null {
         return 'empty';
     }
 
-    if (!/^[a-zA-Z]+$/.test(field)) {
+    if (!/^[a-zA-Z0-9]+( [a-zA-Z0-9]+)*$/.test(field)) {
         return 'invalid';
     }
 

@@ -1,6 +1,16 @@
 import { createReducer } from "@reduxjs/toolkit";
 import { UserState } from "./types";
-import { deleteUser, newUser, setUserError, setUsers, updateUser, userCountryValid, userDataValid, userEmailValid, userNameValid, userPhoneValid } from "./user.actions";
+import { 
+    deleteUser, 
+    newUser, 
+    setUserError, 
+    setUsers, 
+    updateUser, 
+    userCountryValid, 
+    userEmailValid, 
+    userNameValid, 
+    userPhoneValid 
+} from "./user.actions";
 
 export const defaultState: UserState = {
     users: [],
