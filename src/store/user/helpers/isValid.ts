@@ -1,5 +1,5 @@
-import { ErrorType } from "./types";
-import countries from '../../data/countries.json';
+import { ErrorType } from "../types";
+import countries from '../../../data/countries.json';
 
 export function validateName(field: string): ErrorType | null {
     if (field.length === 0) {

@@ -1,7 +1,7 @@
 import { ListenerEffect } from "@reduxjs/toolkit";
 import { newUser, setUserError, updateUser, userCountryValid, userEmailValid, userNameValid, userPhoneValid, validateUserData } from "./user.actions";
 import { ErrorType } from "./types";
-import { validateCountry, validateEmail, validateName, validatePhone } from "./isValid";
+import { validateCountry, validateEmail, validateName, validatePhone } from "./helpers/isValid";
 
 
 export const userListener = [

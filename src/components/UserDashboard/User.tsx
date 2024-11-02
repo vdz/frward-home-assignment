@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { UserProps } from "./types";
 import { deleteUser, updateUser, validateUserData } from "../../store/user/user.actions";
 import { useDispatch, useSelector } from "react-redux";
-import { DeleteButton, UpdateButton, UserEmail, UserName, UserPhone, UserWrapper, WrappedAutoComplete } from "./UserList.styled";
+import { DeleteButton, UpdateButton, UserEmail, UserName, UserPhone, UserWrapper, WrappedAutoComplete } from "./UserDashboard.styled";
 import { RootState } from "../../store/store";
 import { AutoComplete } from "rsuite";
 import countries from '../../data/countries.json';

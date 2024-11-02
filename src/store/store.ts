@@ -1,13 +1,13 @@
 import { configureStore, createListenerMiddleware } from '@reduxjs/toolkit'
 import { initAppListeners } from './listeners';
 import { userReducer } from './user/user.reducer';
-import { uiReducer } from './ui/ui.reducer';
+import { searchReducer } from './search/search.reducer';
 
 const listenerMiddleware = initAppListeners();
 
 export const store = configureStore({
   reducer: {
-    ui: uiReducer,
+    search: searchReducer,
     user: userReducer
   },
   middleware: (getDefaultMiddleware) =>

@@ -11,3 +11,28 @@ body {
   background-image: url('../../assets/lilly.png');
   background-size: 33%;
 }
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #ccc;
+
+  a {
+    font-weight: bold;
+    color: #ccc;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+      color: #fff;
+    }
+  }
+}

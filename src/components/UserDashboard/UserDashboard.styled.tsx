@@ -36,19 +36,17 @@ export const Meta = styled.span`
 `;
 
 export const NewUserButton = styled.button`
+    appearance: none;
     height: 46px;
     width: 92px;
-    line-height: 46px;
-    appearance: none;
-    border: 2px dashed #ccc;
-    border-radius: 1rem;
-    background-color: #fff;
-    padding: 0;
-    color: #ccc;
+    line-height: 6px;
+    border: 0;
+    border-radius: 8px;
+    background-color: transparent;
+    color: #333;
     font-size: 46px;
     font-weight: 700;
     cursor: pointer;
-    transition: all 0.3s ease-in-out;
     text-align: center;
     margin-left: 20px;
     margin-right: 20px;
@@ -56,8 +54,8 @@ export const NewUserButton = styled.button`
     flex-shrink: 0;
 
     &:hover {
-        border-color: #999;
-        color: #999;
+        color: #2a00fc;
+        background-color: #fff;
     }
 `;
 
@@ -129,13 +127,6 @@ export const UserWrapper = styled.div`
                 /* can import content: attr(data-error), but JSX is messy enough */
             }
         }
-
-        &.invalid::after {
-            content: 'Invalid value 🫣';
-        }
-        &.empty::after {
-            content: 'Empty value 😬';
-        }
     }
 `;
 
@@ -162,14 +153,6 @@ export const WrappedAutoComplete = styled(AutoComplete)`
             /* can import content: attr(data-error), but JSX is messy enough */
         }
     }
-
-    &.invalid::after {
-        content: 'Invalid value 🫣';
-    }
-
-    &.empty::after {
-        content: 'Empty value 😬';
-    }
 `;
 
 export const UserName = styled.input``;
@@ -184,13 +167,13 @@ export const DeleteButton = styled.button`
     cursor: pointer;
     width: 46px;
     height: 46px;
-    
+    transition: all 0.3s ease-in-out;
+
     &::before {
         content: '🗑️';
     }
 
     &:hover {
-        animation: fadeIn 1s ease-in-out;
         scale: 1.7;
     }
 `;
@@ -199,7 +182,7 @@ export const UpdateButton = styled.button`
     flex-shrink: 1; 
     appearance: none;
     border: none;
-    background-color: rgb(42, 0, 252);
+    background-color: #2a00fc;
     cursor: pointer;
     min-width: 76px;
     height: 46px;
@@ -217,4 +200,21 @@ export const UpdateButton = styled.button`
     &.show {
         visibility: visible;
     }
+`;
+
+export const UserListActions = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+`;
+
+export const UsersWrapper = styled.div`
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    height: 100vh;
+    overflow-y: auto;
+    padding-top: 0;
 `;
