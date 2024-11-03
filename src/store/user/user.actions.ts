@@ -11,3 +11,4 @@ export const userPhoneValid = createAction<UserDataValidPayload>('user/userPhone
 export const updateUser = createAction<UpdateUserPayload>('user/updateUser');
 export const deleteUser = createAction<DeleteUserPayload>('user/deleteUser');
 export const setUserError = createAction<SetUserErrorPayload>('user/setUserError');
+export const dumpUsersToStorage = createAction('user/dumpUsersToStorage');

@@ -1,5 +1,5 @@
-import { ListenerEffect } from "@reduxjs/toolkit";
-import { newUser, setUserError, updateUser, userCountryValid, userEmailValid, userNameValid, userPhoneValid, validateUserData } from "./user.actions";
+import { isAnyOf, ListenerEffect } from "@reduxjs/toolkit";
+import { deleteUser, dumpUsersToStorage, newUser, setUserError, updateUser, userCountryValid, userEmailValid, userNameValid, userPhoneValid, validateUserData } from "./user.actions";
 import { ErrorType } from "./types";
 import { validateCountry, validateEmail, validateName, validatePhone } from "./helpers/isValid";
 
@@ -69,6 +69,23 @@ export const userListener = [
                     return; 
                 }
                 listenerApi.dispatch(userPhoneValid({ id }));
+            }
+        }
+    },
+    {
+        matcher: isAnyOf(newUser, updateUser, deleteUser),
+        effect: (_, listenerApi) => {
+            listenerApi.dispatch(dumpUsersToStorage());
+        }
+    },
+    {
+        actionCreator: dumpUsersToStorage,
+        effect: (_, listenerApi) => {
+            console.log('💾 — dumpUsersToStorage'+ Date.now());
+            try {
+                localStorage.setItem('users', JSON.stringify(listenerApi.getState().user.users));
+            } catch (error) {
+                console.error('💾 — dumpUsersToStorage error', error);
             }
         }
     }
